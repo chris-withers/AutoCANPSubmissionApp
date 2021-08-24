@@ -41,7 +41,7 @@ namespace AutoCANP.Api.Types
         public List<Result> Results { get; set; }
     }
 
-    public class Root
+    public class RaspResult
     {
         public GetRaspBlipspotResults get_rasp_blipspot_results { get; set; }
     }

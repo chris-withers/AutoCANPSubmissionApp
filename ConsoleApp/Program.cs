@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Net.Http;
 using System.Net.Http.Json;
-using Microsoft.Extensions.DependencyInjection;
 using AutoCANP.Api.Types;
 using System.Threading.Tasks;
-
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using AutoCANP.Api.BusinessLogic.Services;
 
 namespace ConsoleApp
 {
@@ -24,28 +21,16 @@ namespace ConsoleApp
                 Lon = -1.79897
             };
 
-            var result = await GetResponseAsync(site);
+            var sitesService = new GetSitesService();
+            var getRaspResultService = new GetRaspResultService();
+
+            var sites = await sitesService.GetSitesAsync();
+
+            var result = await getRaspResultService.GetRaspResultForSite(sites.Sites[0]);
 
             Console.WriteLine();
             Console.Read();
         }
-
-        public static async Task<Root> GetResponseAsync(Site site)
-        {
-            var services = new ServiceCollection();
-            services.AddHttpClient();
-            var serviceProvider = services.BuildServiceProvider();
-
-            var tomorrow = DateTime.Now.AddDays(1).DayOfWeek;
-            var client = serviceProvider.GetService<HttpClient>();
-
-            var endPoint = $"http://rasp.mrsap.org/cgi-bin/get_rasp_blipspot.cgi?region={tomorrow}&grid=d2&day=0&lat={site.Lat}&lon={site.Lon}&width=2000&height=2000&linfo=1&param=&format=JSON";
-            var vale = await client.GetFromJsonAsync<Root>(endPoint);
-
-            return vale;
-        }
-
-
 
     }
 }

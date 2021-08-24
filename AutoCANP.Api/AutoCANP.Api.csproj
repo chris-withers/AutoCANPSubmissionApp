@@ -5,14 +5,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="BusinessLogic\Interfaces\" />
-    <Folder Include="BusinessLogic\Services\" />
-    <Folder Include="ServiceModel\" />
     <Folder Include="ServiceInterfaces\" />
+    <Folder Include="ServiceModel\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="ServiceStack" Version="5.12.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Data\sites.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Data\sites.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

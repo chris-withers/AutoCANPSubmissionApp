@@ -1,0 +1,26 @@
+{
+  "Sites": [
+    {
+      "Name": "Bradwell",
+      "Lat": 53.3214,
+      "Lon": -1.729600,
+      "WindDirections": [
+        "WSW",
+        "W",
+        "WNW"
+      ]
+    },
+    {
+      "Name": "Lords Seat",
+      "Lat": 53.3479,
+      "Lon": -1.8197,
+      "WindDirections": [
+        "NW",
+        "NNW",
+        "N",
+        "NNE",
+        "NE"
+      ]
+    }
+  ]
+}
