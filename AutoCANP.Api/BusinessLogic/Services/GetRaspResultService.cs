@@ -12,10 +12,11 @@ namespace AutoCANP.Api.BusinessLogic.Services
         public async Task<RaspResult> GetRaspResultForSite(Site site)
         {
             var client = new HttpClient();
-            var tomorrow = DateTime.Now.AddDays(1).DayOfWeek;
+            var reportDate = DateTime.Now.AddDays(1);
 
-            var endPoint = $"http://rasp.mrsap.org/cgi-bin/get_rasp_blipspot.cgi?region={tomorrow}&grid=d2&day=0&lat={site.Lat}&lon={site.Lon}&width=2000&height=2000&linfo=1&param=&format=JSON";
+            var endPoint = $"http://rasp.mrsap.org/cgi-bin/get_rasp_blipspot.cgi?region={reportDate.DayOfWeek}&grid=d2&day=0&lat={site.Lat}&lon={site.Lon}&width=2000&height=2000&linfo=1&param=&format=JSON";
             var result = await client.GetFromJsonAsync<RaspResult>(endPoint);
+            result.ForDay = reportDate;
 
             return result;
 

@@ -43,6 +43,7 @@ namespace AutoCANP.Api.Types
 
     public class RaspResult
     {
+        public DateTime ForDay { get; set; }
         public GetRaspBlipspotResults get_rasp_blipspot_results { get; set; }
     }
 
@@ -57,7 +58,7 @@ namespace AutoCANP.Api.Types
             var text = rootElement.RootElement.GetRawText();
 
             if (!double.TryParse(text, out _))
-                return JsonSerializer.Deserialize<T>("0", options);
+                return JsonSerializer.Deserialize<T>("-1", options);
 
             return JsonSerializer.Deserialize<T>(text, options);
         }
