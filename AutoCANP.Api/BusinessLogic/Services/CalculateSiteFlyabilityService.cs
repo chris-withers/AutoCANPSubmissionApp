@@ -13,7 +13,7 @@ namespace AutoCANP.Api.BusinessLogic.Services
         private const int MAX_WIND_SPEED = 13;
 
         public IGetSitesService GetSitesService { get; set; }
-        public IGetRaspResultService GetGetRaspResultService { get; set; }
+        public IGetRaspResultService GetRaspResultService { get; set; }
 
         public async Task<Report> GenerateReportAsync()
         {
@@ -26,7 +26,7 @@ namespace AutoCANP.Api.BusinessLogic.Services
 
             foreach (var site in sites.Sites)
             {
-                var raspResult = await GetGetRaspResultService.GetRaspResultForSite(site);
+                var raspResult = await GetRaspResultService.GetRaspResultForSite(site);
 
                 var stats = GetFlyablePeriods(raspResult, site.WindDirections);
 
@@ -65,7 +65,7 @@ namespace AutoCANP.Api.BusinessLogic.Services
                 {
                     if (Compass.DegreesToCompass(item.value) == dir)
                     {
-                        windDirTimes.Add(new WindDirectionTimes { Time = item.time, WindDirection = dir });
+                        windDirTimes.Add(new WindDirectionTimes { Time = item.time, WindDirection = dir + " (" + item.value + ")" });
                     }
                 }
             }

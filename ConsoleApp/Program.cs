@@ -30,7 +30,7 @@ namespace ConsoleApp
 
             var calculateFlyabilityService = new CalculateSiteFlyabilityService
             {
-                GetGetRaspResultService = new GetRaspResultService(),
+                GetRaspResultService = new GetRaspResultService(),
                 GetSitesService = new GetSitesService()
             };
 

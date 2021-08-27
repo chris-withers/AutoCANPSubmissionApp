@@ -1,13 +1,15 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ServiceStack;
+using AutoCANP.Api.ServiceInterfaces.Services.CANP.Report;
+using Funq;
+using ServiceStack.Validation;
+using ServiceStack.Api.OpenApi;
+using ServiceStack.Text;
+using AutoCANP.Api;
 
 namespace AutoCANPSubmissionApp
 {
@@ -51,6 +53,40 @@ namespace AutoCANPSubmissionApp
             {
                 endpoints.MapRazorPages();
             });
+
+            app.UseServiceStack(new AppHost
+            {
+                AppSettings = new NetCoreAppSettings(Configuration)
+            });
+        }
+
+        public class AppHost : AppHostBase
+        {
+            public AppHost() : base("AutoCANPSubmissionApp.App", typeof(CANPReportServices).Assembly) { }
+
+            public override void Configure(Container container)
+            {
+
+                Bindings.Configure(container);
+                Plugins.Add(new ValidationFeature());
+                Plugins.Add(new OpenApiFeature());
+
+                SetConfig(new HostConfig
+                {
+                    HandlerFactoryPath = "api",
+                    //  DefaultRedirectPath = "api/metadata",
+                    DebugMode = AppSettings.Get(nameof(HostConfig.DebugMode), false)
+                });
+
+                Instance.Config.GlobalResponseHeaders.Remove("x-powered-by");
+
+                JsConfig.Init(new Config
+                {
+                    DateHandler = DateHandler.ISO8601
+                });
+
+            //    container.RegisterValidators(typeof(UserServices).Assembly);
+            }
         }
     }
 }

@@ -2,6 +2,26 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>acab1109-8a86-4585-b009-e0a101bef8e2</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Data\sites.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ServiceStack" Version="5.12.0" />
+    <PackageReference Include="ServiceStack.Api.OpenApi" Version="5.12.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AutoCANP.Api\AutoCANP.Api.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Data\sites.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
 </Project>

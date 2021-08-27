@@ -11,7 +11,7 @@ namespace AutoCANP.Api.BusinessLogic.Services
         public async Task<FlyingSites> GetSitesAsync()
         {
             //todo: env variable rather than hardcode
-            var fileName = "./Data/sites.json";
+            var fileName = "Data/sites.json";
             using FileStream openStream = File.OpenRead(fileName);
 
             return await JsonSerializer.DeserializeAsync<FlyingSites>(openStream);
